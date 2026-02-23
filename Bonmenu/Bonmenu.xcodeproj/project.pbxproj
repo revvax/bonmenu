@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		006B85ECD95D33839246AF32 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F7513BDDCCE29312AE70A /* PermissionsView.swift */; };
-		CTRL00000001000000000002 /* ControlItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CTRL00000001000000000001 /* ControlItem.swift */; };
 		166E8C0E5D21475D1C56F6F5 /* DropdownContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548357757C4EDE1CB50FD54 /* DropdownContentView.swift */; };
 		19DAFEF93236088C431020E6 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A050485FE31E9A09FC6355AC /* MenuBarManager.swift */; };
 		24789C9FDF7C1FD398CB6B1B /* MenuBarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87662D0301B1D70A2959E4 /* MenuBarSection.swift */; };
@@ -44,7 +43,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CTRL00000001000000000001 /* ControlItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlItem.swift; sourceTree = "<group>"; };
 		1B77D5174EE998219DB497C3 /* WindowInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowInfo.swift; sourceTree = "<group>"; };
 		2548357757C4EDE1CB50FD54 /* DropdownContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownContentView.swift; sourceTree = "<group>"; };
 		270F0171754FC11F6A95BDBD /* MenuBarItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItemManager.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 		C65E0CEC7755A28B100D00CA /* MenuBar */ = {
 			isa = PBXGroup;
 			children = (
-				CTRL00000001000000000001 /* ControlItem.swift */,
 				A050485FE31E9A09FC6355AC /* MenuBarManager.swift */,
 				EB87662D0301B1D70A2959E4 /* MenuBarSection.swift */,
 				F2F45E6541DAF6568774EB76 /* Items */,
@@ -308,7 +305,6 @@
 				51F933887540A6080D8B931F /* BonmenuApp.swift in Sources */,
 				698E31E389D1BA447138841E /* Bridging.swift in Sources */,
 				C06363EC59068164CD8247DC /* Constants.swift in Sources */,
-				CTRL00000001000000000002 /* ControlItem.swift in Sources */,
 				166E8C0E5D21475D1C56F6F5 /* DropdownContentView.swift in Sources */,
 				A7C2A7BD1CE56ED748A2D9F1 /* DropdownFooterView.swift in Sources */,
 				3C868C6876CFA6809FDD79F5 /* DropdownHeaderView.swift in Sources */,

@@ -2,12 +2,16 @@ import AppKit
 import Combine
 import os
 
-/// Manages the Bonmenu status item (chevron trigger) and the dropdown panel.
+/// Manages the Bonmenu status item (chevron trigger + divider) and the dropdown panel.
 ///
-/// Handles:
-/// - Creating and maintaining the chevron status item in the menu bar
-/// - Monitoring visibility and recreating if pushed off-screen
-/// - Managing the dropdown panel lifecycle
+/// The chevron status item serves a dual purpose:
+/// - **Trigger**: Clicking it opens/closes the dropdown
+/// - **Divider**: When hiding items, it expands to 10,000px (icon stays at the right edge),
+///   pushing all items to its left off-screen. When showing items, it collapses to its
+///   normal icon width.
+///
+/// This single-item approach ensures no gap exists between the divider and trigger,
+/// preventing macOS from placing other apps' items in between.
 @MainActor
 final class MenuBarManager: ObservableObject {
 
@@ -16,34 +20,55 @@ final class MenuBarManager: ObservableObject {
         category: "MenuBarManager"
     )
 
-    /// Our status item in the system menu bar.
-    private(set) var statusItem: NSStatusItem?
+    // MARK: - Overflow State
 
-    /// Invisible divider item that pushes items off-screen for overflow management.
-    private(set) var controlItem: ControlItem?
+    enum OverflowState {
+        case hideItems
+        case showItems
+    }
+
+    /// Controls whether hidden items are pushed off-screen or revealed.
+    var overflowState: OverflowState = .hideItems {
+        didSet { updateStatusItemLength() }
+    }
+
+    /// The combined chevron + divider status item.
+    private(set) var statusItem: NSStatusItem?
 
     /// The dropdown panel.
     private(set) var dropdownPanel: DropdownPanel?
 
     private weak var appState: AppState?
     private var cancellables = Set<AnyCancellable>()
-    private var visibilityTimer: AnyCancellable?
+
+    /// The normal width of the chevron icon area.
+    private static let chevronWidth: CGFloat = 24
+    /// The expanded width that pushes items off-screen.
+    private static let expandedWidth: CGFloat = 10_000
 
     init(appState: AppState) {
         self.appState = appState
+    }
+
+    // MARK: - Computed
+
+    /// The CGWindowID of the status item's window, used for scan exclusion and classification.
+    var statusItemWindowID: CGWindowID? {
+        guard let window = statusItem?.button?.window else { return nil }
+        let wn = window.windowNumber
+        guard wn > 0 else { return nil }
+        return CGWindowID(clamping: wn)
     }
 
     // MARK: - Setup
 
     func performSetup() {
         createStatusItem()
-        createControlItem()
         createDropdownPanel()
-        startVisibilityMonitoring()
         logger.info("MenuBarManager setup complete.")
     }
 
-    // MARK: - Status Item
+    // MARK: - Status Item (Chevron + Divider)
 
     private func createStatusItem() {
         // Remove existing item if any
@@ -51,15 +76,9 @@ final class MenuBarManager: ObservableObject {
             NSStatusBar.system.removeStatusItem(existing)
         }
 
-        // Create with a very small fixed length to minimize space usage
-        let item = NSStatusBar.system.statusItem(withLength: 24)
-
-        // autosaveName helps macOS remember the user's preferred position.
-        // The user should Command+drag it right after the Apple system icons.
+        // Start expanded — items to our left are immediately pushed off-screen
+        let item = NSStatusBar.system.statusItem(withLength: Self.expandedWidth)
         item.autosaveName = "BonmenuTrigger"
-
-        // Make the item behave as a "removal allowed" item so macOS treats it
-        // with higher priority for positioning
         item.behavior = .removalAllowed
 
         if let button = item.button {
@@ -70,56 +89,32 @@ final class MenuBarManager: ObservableObject {
             )?.withSymbolConfiguration(symbolConfig)
             image?.isTemplate = true
             button.image = image
-            button.imagePosition = .imageOnly
+            // Place the icon at the right (trailing) edge of the button.
+            // The rest of the 10,000px width extends to the left, pushing items off-screen.
+            button.imagePosition = .imageRight
             button.action = #selector(statusItemClicked(_:))
             button.target = self
             button.sendAction(on: [.leftMouseUp, .rightMouseUp])
-
-            // Tooltip to guide user
-            button.toolTip = "Bonmenu — Tip: ⌘-drag to reposition after system icons"
+            button.toolTip = "Bonmenu"
+            // Clear title to avoid extra space
+            button.title = ""
         }
 
         statusItem = item
-        logger.info("Status item created.")
+        overflowState = .hideItems
+        logger.info("Status item created (chevron + divider, width = \(Self.expandedWidth)).")
     }
 
-    // MARK: - Control Item (Divider)
+    private func updateStatusItemLength() {
+        guard let statusItem else { return }
 
-    private func createControlItem() {
-        controlItem = ControlItem()
-    }
-
-    // MARK: - Visibility Monitoring
-
-    /// Monitors whether our status item is still visible.
-    /// If it gets pushed off-screen by too many other items, we log a warning.
-    private func startVisibilityMonitoring() {
-        visibilityTimer = Timer.publish(
-            every: 3.0,
-            on: .main,
-            in: .common
-        )
-        .autoconnect()
-        .sink { [weak self] _ in
-            self?.checkVisibility()
-        }
-    }
-
-    private func checkVisibility() {
-        guard let statusItem, let button = statusItem.button, let window = button.window else {
-            return
-        }
-
-        let frame = window.frame
-        guard let screen = NSScreen.main else { return }
-
-        // Check if our item is visible on screen
-        let isVisible = frame.origin.x >= 0 && frame.maxX <= screen.frame.width
-
-        if !isVisible && statusItem.isVisible {
-            logger.warning("Bonmenu status item was pushed off-screen! Frame: \(frame.debugDescription)")
-            // The item is being clipped. We can't force a position,
-            // but we can try to ensure it stays by toggling visibility.
+        switch overflowState {
+        case .hideItems:
+            statusItem.length = Self.expandedWidth
+            logger.debug("Chevron expanded — hiding items.")
+        case .showItems:
+            statusItem.length = Self.chevronWidth
+            logger.debug("Chevron collapsed — showing items.")
         }
     }
 
@@ -139,17 +134,8 @@ final class MenuBarManager: ObservableObject {
     private func showContextMenu() {
         let menu = NSMenu()
 
-        let positionItem = NSMenuItem(
-            title: "Tip: ⌘-drag this icon right next to system icons",
-            action: nil,
-            keyEquivalent: ""
-        )
-        positionItem.isEnabled = false
-        menu.addItem(positionItem)
-        menu.addItem(NSMenuItem.separator())
-
         menu.addItem(NSMenuItem(
-            title: "Preferences…",
+            title: "Preferences\u{2026}",
             action: #selector(openPreferences),
             keyEquivalent: ","
         ))

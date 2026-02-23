@@ -8,9 +8,9 @@ import os
 /// Detection strategy (active overflow via divider):
 /// 1. Query menu bar item windows via CGSGetProcessMenuBarWindowList
 /// 2. Filter out system processes and own windows (chevron + divider)
-/// 3. Classify by position relative to the ControlItem divider:
-///    - Items right of the divider → visible
-///    - Items left of the divider (pushed off-screen by 10,000px width) → hidden
+/// 3. Classify by position relative to the chevron status item:
+///    - Items right of the chevron → visible
+///    - Items left of the chevron (pushed off-screen by 10,000px width) → hidden
 @MainActor
 final class MenuBarItemManager: ObservableObject {
 
@@ -118,13 +118,10 @@ final class MenuBarItemManager: ObservableObject {
         let menuBarHeight = NSScreen.main?.menuBarHeight ?? 37
 
         // ── Step 4: Collect our own window IDs to exclude ──
+        // The chevron and divider are a single status item now.
         var ownWindowIDs = Set<CGWindowID>()
-        if let chevronWindow = appState?.menuBarManager.statusItem?.button?.window,
-           let wid = CGWindowID(exactly: chevronWindow.windowNumber) {
+        if let wid = appState?.menuBarManager.statusItemWindowID {
             ownWindowIDs.insert(wid)
-        }
-        if let dividerWID = appState?.menuBarManager.controlItem?.windowID {
-            ownWindowIDs.insert(dividerWID)
         }
 
         // ── Step 5: Build a lookup of accessory apps for owner resolution ──
@@ -234,10 +231,11 @@ final class MenuBarItemManager: ObservableObject {
     // MARK: - Classification (Divider-based)
 
     private func classifyItems(_ items: [MenuBarItem]) {
-        // Get the divider's frame to classify items relative to it
-        guard let controlItem = appState?.menuBarManager.controlItem,
-              let dividerWindow = controlItem.statusItem.button?.window else {
-            // No divider available — fall back to on-screen check
+        // Get the chevron/divider's frame to classify items relative to it.
+        // The chevron IS the divider — items to its right are visible, items to its left are hidden.
+        guard let statusItem = appState?.menuBarManager.statusItem,
+              let chevronWindow = statusItem.button?.window else {
+            // No status item available — fall back to on-screen check
             var visible: [MenuBarItem] = []
             var hidden: [MenuBarItem] = []
             for item in items {
@@ -251,7 +249,7 @@ final class MenuBarItemManager: ObservableObject {
             return
         }
 
-        let dividerMaxX = dividerWindow.frame.maxX
+        let dividerMaxX = chevronWindow.frame.maxX
 
         var visible: [MenuBarItem] = []
         var hidden: [MenuBarItem] = []
@@ -312,13 +310,13 @@ final class MenuBarItemManager: ObservableObject {
         let isCurrentlyHidden = itemCache.hiddenItems.contains { $0.windowID == item.windowID }
 
         if isCurrentlyHidden {
-            // Move to the right of the divider (visible area)
-            guard let controlItem = appState?.menuBarManager.controlItem,
-                  let dividerWindow = controlItem.statusItem.button?.window else { return }
-            let targetX = dividerWindow.frame.maxX + 10
+            // Move to the right of the chevron (visible area)
+            guard let statusItem = appState?.menuBarManager.statusItem,
+                  let chevronWindow = statusItem.button?.window else { return }
+            let targetX = chevronWindow.frame.maxX + 10
             try? await moveItem(item, toX: targetX)
         } else {
-            // Move to the left of the divider (hidden area)
+            // Move to the left of the chevron (hidden area)
             try? await moveItem(item, toX: -100)
         }
     }
@@ -356,8 +354,8 @@ final class MenuBarItemManager: ObservableObject {
     /// 4. Click the item at its new position
     /// 5. After a delay, re-expand the divider to hide items again
     func tempShowAndClick(_ item: MenuBarItem) async {
-        guard let controlItem = appState?.menuBarManager.controlItem else {
-            // No divider — just click directly
+        guard let menuBarManager = appState?.menuBarManager else {
+            // No manager — just click directly
             await clickItem(item)
             return
         }
@@ -365,8 +363,8 @@ final class MenuBarItemManager: ObservableObject {
         // Dismiss the dropdown first
         appState?.isDropdownVisible = false
 
-        // Collapse the divider to reveal hidden items
-        controlItem.state = .showItems
+        // Collapse the chevron/divider to reveal hidden items
+        menuBarManager.overflowState = .showItems
 
         // Wait for macOS to update the layout
         try? await Task.sleep(for: .milliseconds(200))
@@ -384,8 +382,8 @@ final class MenuBarItemManager: ObservableObject {
         // Wait before re-hiding so the user can interact with the opened menu
         try? await Task.sleep(for: .seconds(2))
 
-        // Re-expand the divider
-        controlItem.state = .hideItems
+        // Re-expand the chevron/divider
+        menuBarManager.overflowState = .hideItems
 
         // Re-scan after hiding
         try? await Task.sleep(for: .milliseconds(200))
