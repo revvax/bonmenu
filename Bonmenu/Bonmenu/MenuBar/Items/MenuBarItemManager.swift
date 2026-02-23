@@ -92,8 +92,6 @@ final class MenuBarItemManager: ObservableObject {
         let myPID = ProcessInfo.processInfo.processIdentifier
 
         // ── Step 1: Get actual menu bar item window IDs from CGS ──
-        // CGSGetProcessMenuBarWindowList returns ONLY windows registered as NSStatusItem,
-        // unlike CGWindowList layer-25 which catches tooltips, notifications, background agents.
         let menuBarWindowIDs = Bridging.getMenuBarItemWindowList()
 
         guard !menuBarWindowIDs.isEmpty else {
@@ -106,18 +104,20 @@ final class MenuBarItemManager: ObservableObject {
         let onScreenIDs = Bridging.getOnScreenMenuBarItemWindowList()
 
         // ── Step 3: Get metadata via public API for owner info ──
-        let descriptions = Bridging.getWindowDescriptions(for: menuBarWindowIDs)
+        // On macOS 26, CGWindowListCreateDescriptionFromArray returns nothing for CGS window IDs.
+        // Use CGWindowListCopyWindowInfo with .optionAll and filter by layer 25 instead.
+        let allWindowDescs = Bridging.getAllWindows(option: [.optionAll])
         var descByID: [CGWindowID: [String: Any]] = [:]
-        for desc in descriptions {
-            if let wid = desc[kCGWindowNumber as String] as? CGWindowID {
-                descByID[wid] = desc
-            }
+        for desc in allWindowDescs {
+            guard let wid = desc[kCGWindowNumber as String] as? CGWindowID,
+                  let layer = desc[kCGWindowLayer as String] as? Int,
+                  layer == 25 else { continue }
+            descByID[wid] = desc
         }
 
         let menuBarHeight = NSScreen.main?.menuBarHeight ?? 37
 
-        // ── Step 4: Build MenuBarItem for each window ──
-        // Collect our own window IDs to exclude (chevron + divider)
+        // ── Step 4: Collect our own window IDs to exclude ──
         var ownWindowIDs = Set<CGWindowID>()
         if let chevronWindow = appState?.menuBarManager.statusItem?.button?.window,
            let wid = CGWindowID(exactly: chevronWindow.windowNumber) {
@@ -127,13 +127,34 @@ final class MenuBarItemManager: ObservableObject {
             ownWindowIDs.insert(dividerWID)
         }
 
+        // ── Step 5: Build a lookup of accessory apps for owner resolution ──
+        // On macOS 26, all items report as Control Center (FB18327911).
+        // We match menu bar windows to third-party apps by checking which
+        // .accessory apps are running and have status bar items.
+        let accessoryApps = NSWorkspace.shared.runningApplications
+            .filter { $0.activationPolicy == .accessory && $0.processIdentifier != myPID }
+        var accessoryByPID: [pid_t: String] = [:]
+        for app in accessoryApps {
+            if let bid = app.bundleIdentifier {
+                accessoryByPID[app.processIdentifier] = bid
+            }
+        }
+        // Detect macOS 26 PID-misattribution: check if ALL items share a single PID
+        let reportedPIDs = Set(menuBarWindowIDs.compactMap {
+            descByID[$0]?[kCGWindowOwnerPID as String] as? pid_t
+        })
+        let allMisattributed = reportedPIDs.count == 1
+            && reportedPIDs.first.map({ Self.systemBundleIDs.contains(
+                NSRunningApplication(processIdentifier: $0)?.bundleIdentifier ?? ""
+            ) }) == true
+
+        // ── Step 6: Build MenuBarItem for each window ──
         var items: [MenuBarItem] = []
 
         for windowID in menuBarWindowIDs {
-            // Skip our own windows (chevron + divider) by window ID
-            // On macOS 26, the public API may misattribute our windows to Control Center
             if ownWindowIDs.contains(windowID) { continue }
-            // Get frame via CGS (more reliable on macOS 26)
+
+            // Get frame
             let frame: CGRect
             if let cgsFrame = Bridging.getWindowFrame(for: windowID), cgsFrame != .zero {
                 frame = cgsFrame
@@ -146,42 +167,30 @@ final class MenuBarItemManager: ObservableObject {
                 continue
             }
 
-            // Strict geometric validation: must be in the menu bar area
+            // Geometric validation
             guard frame.height > 0 && frame.height <= menuBarHeight + 5 else { continue }
             guard frame.origin.y <= menuBarHeight + 2 else { continue }
-            guard frame.width > 0 && frame.width < 500 else { continue } // No real item is >500px wide
+            guard frame.width > 0 && frame.width < 500 else { continue }
 
-            // Get owner info from descriptions
             let desc = descByID[windowID]
             let ownerPID = desc?[kCGWindowOwnerPID as String] as? pid_t ?? 0
-
-            // Skip items with no owner or owned by us
-            guard ownerPID > 0 && ownerPID != myPID else { continue }
-
-            var ownerName = desc?[kCGWindowOwnerName as String] as? String
+            let ownerName = desc?[kCGWindowOwnerName as String] as? String
             let windowTitle = desc?[kCGWindowName as String] as? String
 
-            // macOS 26 workaround (FB18327911): many items are misreported as
-            // owned by Control Center regardless of locale. Check by bundle ID.
-            let resolvedApp = NSRunningApplication(processIdentifier: ownerPID)
-            let resolvedBundleID = resolvedApp?.bundleIdentifier
+            // Skip items with no owner
+            guard ownerPID > 0 else { continue }
+            // Skip our own PID (works when PIDs are reported correctly)
+            if ownerPID == myPID { continue }
 
-            if resolvedBundleID == "com.apple.controlcenter" && resolvedApp?.localizedName != ownerName {
-                // Genuine Control Center item but name may be localized — keep ownerName as-is
-            } else if resolvedBundleID != nil && resolvedBundleID != "com.apple.controlcenter" {
-                // Misattributed — resolve to the real app name
-                ownerName = resolvedApp?.localizedName ?? ownerName
+            if !allMisattributed {
+                // PIDs are reliable — use traditional filtering
+                if let name = ownerName, Self.systemProcessNames.contains(name) { continue }
+                let resolvedBID = NSRunningApplication(processIdentifier: ownerPID)?.bundleIdentifier
+                if let bid = resolvedBID, Self.systemBundleIDs.contains(bid) { continue }
             }
-
-            // Skip Apple system processes (by name)
-            if let name = ownerName, Self.systemProcessNames.contains(name) {
-                continue
-            }
-
-            // Skip Apple system processes (by bundle ID) — handles localized names
-            if let bid = resolvedBundleID, Self.systemBundleIDs.contains(bid) {
-                continue
-            }
+            // When allMisattributed: skip NO items — the divider position handles everything.
+            // System items (clock, Wi-Fi, etc.) stay right of the divider = visible,
+            // and only hidden (overflow) items appear in the dropdown.
 
             let isOnScreen = onScreenIDs.contains(windowID)
 
@@ -194,33 +203,32 @@ final class MenuBarItemManager: ObservableObject {
                 isOnScreen: isOnScreen
             )
 
-            if let bundleID = item.bundleIdentifier,
-               Self.systemBundleIDs.contains(bundleID) {
-                continue
-            }
-
             items.append(item)
         }
 
-        // ── Step 5: Deduplicate by PID (keep item with widest frame per app) ──
-        var bestPerPID: [pid_t: MenuBarItem] = [:]
-        for item in items {
-            if let existing = bestPerPID[item.ownerPID] {
-                if item.frame.width > existing.frame.width {
+        // ── Step 7: Sort by X position (no PID-dedup when misattributed) ──
+        if allMisattributed {
+            // All PIDs are the same — keep every individual window
+            items.sort { $0.frame.origin.x < $1.frame.origin.x }
+        } else {
+            // Deduplicate by PID (keep widest frame per app)
+            var bestPerPID: [pid_t: MenuBarItem] = [:]
+            for item in items {
+                if let existing = bestPerPID[item.ownerPID] {
+                    if item.frame.width > existing.frame.width {
+                        bestPerPID[item.ownerPID] = item
+                    }
+                } else {
                     bestPerPID[item.ownerPID] = item
                 }
-            } else {
-                bestPerPID[item.ownerPID] = item
             }
+            items = Array(bestPerPID.values).sorted { $0.frame.origin.x < $1.frame.origin.x }
         }
 
-        let deduped = Array(bestPerPID.values)
-            .sorted { $0.frame.origin.x < $1.frame.origin.x }
+        // ── Step 8: Classify into visible vs hidden ──
+        classifyItems(items)
 
-        // ── Step 6: Classify into visible vs hidden ──
-        classifyItems(deduped)
-
-        logger.debug("Scan: \(self.itemCache.visibleItems.count) visible, \(self.itemCache.hiddenItems.count) hidden")
+        logger.debug("Scan: \(self.itemCache.visibleItems.count) visible, \(self.itemCache.hiddenItems.count) hidden (misattributed=\(allMisattributed))")
     }
 
     // MARK: - Classification (Divider-based)
@@ -366,8 +374,8 @@ final class MenuBarItemManager: ObservableObject {
         // Re-scan to get updated positions
         scanMenuBarItems()
 
-        // Find the item's updated frame by matching PID
-        let updatedItem = itemCache.allItems.first { $0.ownerPID == item.ownerPID }
+        // Find the item's updated frame by matching window ID
+        let updatedItem = itemCache.allItems.first { $0.windowID == item.windowID }
             ?? item
 
         // Click the item
