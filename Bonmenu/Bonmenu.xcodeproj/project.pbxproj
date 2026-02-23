@@ -1,0 +1,537 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		006B85ECD95D33839246AF32 /* PermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70F7513BDDCCE29312AE70A /* PermissionsView.swift */; };
+		CTRL00000001000000000002 /* ControlItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CTRL00000001000000000001 /* ControlItem.swift */; };
+		166E8C0E5D21475D1C56F6F5 /* DropdownContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548357757C4EDE1CB50FD54 /* DropdownContentView.swift */; };
+		19DAFEF93236088C431020E6 /* MenuBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A050485FE31E9A09FC6355AC /* MenuBarManager.swift */; };
+		24789C9FDF7C1FD398CB6B1B /* MenuBarSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87662D0301B1D70A2959E4 /* MenuBarSection.swift */; };
+		2A6650840FEF030028ADE768 /* LocalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DFAAF33F7632E99B392968 /* LocalEventMonitor.swift */; };
+		38444D0AF57F59B881603E16 /* GeneralSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7959780F895BABB81C3D4A3 /* GeneralSettingsPane.swift */; };
+		3AE30D43FE1EA89BC2D7F4FC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24A072971EF22425838F134 /* Extensions.swift */; };
+		3C868C6876CFA6809FDD79F5 /* DropdownHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397244D1E09C063C88A014BF /* DropdownHeaderView.swift */; };
+		407B349D7EA4B908AC1F2730 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32C52BBFC6DD48185A2ED0EE /* Assets.xcassets */; };
+		4B467BC513A9706764E24925 /* AdvancedSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5474326D3049605906287F59 /* AdvancedSettingsPane.swift */; };
+		510FAD4A5927A37448205B9B /* DropdownSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82623D2975993453E0BF3DC /* DropdownSectionView.swift */; };
+		51F933887540A6080D8B931F /* BonmenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FE6708A7B83AD8FBF44115 /* BonmenuApp.swift */; };
+		698E31E389D1BA447138841E /* Bridging.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9CF33335EBD27B80AE1F66A /* Bridging.swift */; };
+		8093BE7800D2D3380461DE87 /* ScreenRecordingPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83414F7B65D58920F123D7A4 /* ScreenRecordingPermission.swift */; };
+		90EE7C1531C31905A18FBF2E /* MenuBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B0D592E165D2B756C3D901 /* MenuBarItem.swift */; };
+		960EBF349BBEC5EC8EE83E3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1690C3125C2A363B7E169E /* AppDelegate.swift */; };
+		99958D0AF7CFD83A13563AD6 /* AccessibilityPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72C93069968E7D5E70D58FA /* AccessibilityPermission.swift */; };
+		9C385A3EAF79A2DCA9C66C68 /* PrivateAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472EBFB64EEEF3FCBE4A0A0B /* PrivateAPIs.swift */; };
+		A7C2A7BD1CE56ED748A2D9F1 /* DropdownFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E813A99A9DAFB58271FAC2 /* DropdownFooterView.swift */; };
+		B4440F4D8C8A0AE16D4BFC88 /* MenuBarItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270F0171754FC11F6A95BDBD /* MenuBarItemManager.swift */; };
+		B62CC4AAE4E54729009545B4 /* DropdownPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4AB5FF873D00FB9F5EED437 /* DropdownPanel.swift */; };
+		B8EFDC63CF270623A4A5A545 /* AppearanceSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDD6E537192AC2E0BF1957 /* AppearanceSettingsPane.swift */; };
+		BF90056A4B4B349B9C41798E /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA3872ED9FEB0F086CB804 /* PermissionsManager.swift */; };
+		C06363EC59068164CD8247DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98E22A15C1591B985CA89E5 /* Constants.swift */; };
+		D019407D27E9FBA4629F695C /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AE7341B3492C60667D33D7 /* HotkeyManager.swift */; };
+		D17C5F1DE89B677E82F8E5BE /* GlobalEventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AA8AA1CF963EFD6EC3BCC9 /* GlobalEventMonitor.swift */; };
+		D354D30720FA3CE132F459AC /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA6CA2C57BABBED6E217DE2 /* AppState.swift */; };
+		E126AFA5E8F73E8C43D6E69E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA46C9521ECD3816AF1210F /* SettingsView.swift */; };
+		E4024610B91B694CA8685B56 /* WindowInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B77D5174EE998219DB497C3 /* WindowInfo.swift */; };
+		E5106B05A89FCE02701696FB /* PrismaticBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47A2935FC80F4B10253D074 /* PrismaticBorderView.swift */; };
+		EA166C0DDBD15F0BA4E9CD22 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73A1C29B231A138637105A7 /* EventManager.swift */; };
+		F6664F4C918C2AD35DE7E71B /* MenuBarItemImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889335FAD6398D45853DE370 /* MenuBarItemImageCache.swift */; };
+		F93B5AAE3E58BC1A52692DD7 /* DropdownItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ADFEEF8B7B6BB83E4423D6 /* DropdownItemView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CTRL00000001000000000001 /* ControlItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlItem.swift; sourceTree = "<group>"; };
+		1B77D5174EE998219DB497C3 /* WindowInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowInfo.swift; sourceTree = "<group>"; };
+		2548357757C4EDE1CB50FD54 /* DropdownContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownContentView.swift; sourceTree = "<group>"; };
+		270F0171754FC11F6A95BDBD /* MenuBarItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItemManager.swift; sourceTree = "<group>"; };
+		32C52BBFC6DD48185A2ED0EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		397244D1E09C063C88A014BF /* DropdownHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownHeaderView.swift; sourceTree = "<group>"; };
+		45DFAAF33F7632E99B392968 /* LocalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEventMonitor.swift; sourceTree = "<group>"; };
+		472EBFB64EEEF3FCBE4A0A0B /* PrivateAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateAPIs.swift; sourceTree = "<group>"; };
+		49B0D592E165D2B756C3D901 /* MenuBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItem.swift; sourceTree = "<group>"; };
+		5474326D3049605906287F59 /* AdvancedSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsPane.swift; sourceTree = "<group>"; };
+		54E813A99A9DAFB58271FAC2 /* DropdownFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownFooterView.swift; sourceTree = "<group>"; };
+		5DDDD6E537192AC2E0BF1957 /* AppearanceSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsPane.swift; sourceTree = "<group>"; };
+		7AA6CA2C57BABBED6E217DE2 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		83414F7B65D58920F123D7A4 /* ScreenRecordingPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingPermission.swift; sourceTree = "<group>"; };
+		85ADFEEF8B7B6BB83E4423D6 /* DropdownItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownItemView.swift; sourceTree = "<group>"; };
+		889335FAD6398D45853DE370 /* MenuBarItemImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarItemImageCache.swift; sourceTree = "<group>"; };
+		8BA46C9521ECD3816AF1210F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A050485FE31E9A09FC6355AC /* MenuBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarManager.swift; sourceTree = "<group>"; };
+		A4FE6708A7B83AD8FBF44115 /* BonmenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonmenuApp.swift; sourceTree = "<group>"; };
+		A72C93069968E7D5E70D58FA /* AccessibilityPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityPermission.swift; sourceTree = "<group>"; };
+		A7959780F895BABB81C3D4A3 /* GeneralSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsPane.swift; sourceTree = "<group>"; };
+		B1AE7341B3492C60667D33D7 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		B24A072971EF22425838F134 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B70F7513BDDCCE29312AE70A /* PermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsView.swift; sourceTree = "<group>"; };
+		B9CF33335EBD27B80AE1F66A /* Bridging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridging.swift; sourceTree = "<group>"; };
+		C73A1C29B231A138637105A7 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		D4AB5FF873D00FB9F5EED437 /* DropdownPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownPanel.swift; sourceTree = "<group>"; };
+		D82623D2975993453E0BF3DC /* DropdownSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownSectionView.swift; sourceTree = "<group>"; };
+		D98E22A15C1591B985CA89E5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E0AA8AA1CF963EFD6EC3BCC9 /* GlobalEventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEventMonitor.swift; sourceTree = "<group>"; };
+		E59A80E17C2F26FCC5D66A1D /* Bonmenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonmenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9BA3872ED9FEB0F086CB804 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
+		EB87662D0301B1D70A2959E4 /* MenuBarSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarSection.swift; sourceTree = "<group>"; };
+		EC1690C3125C2A363B7E169E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F47A2935FC80F4B10253D074 /* PrismaticBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrismaticBorderView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1AC383D5C2DFC0AC42A33345 /* Bridging */ = {
+			isa = PBXGroup;
+			children = (
+				B9CF33335EBD27B80AE1F66A /* Bridging.swift */,
+				472EBFB64EEEF3FCBE4A0A0B /* PrivateAPIs.swift */,
+			);
+			path = Bridging;
+			sourceTree = "<group>";
+		};
+		3F5C963E4B1B216627EDCB6C = {
+			isa = PBXGroup;
+			children = (
+				6D4B748A3E5BC9F038DBED85 /* Bonmenu */,
+				A630E52C26DEC641D326217D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		541620218624B61713F70DBA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D98E22A15C1591B985CA89E5 /* Constants.swift */,
+				B24A072971EF22425838F134 /* Extensions.swift */,
+				1B77D5174EE998219DB497C3 /* WindowInfo.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		55F765F7374AF947F70AE1FC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				32C52BBFC6DD48185A2ED0EE /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6AEEAA2B9857D7F9BAE3837E /* Permissions */ = {
+			isa = PBXGroup;
+			children = (
+				A72C93069968E7D5E70D58FA /* AccessibilityPermission.swift */,
+				E9BA3872ED9FEB0F086CB804 /* PermissionsManager.swift */,
+				B70F7513BDDCCE29312AE70A /* PermissionsView.swift */,
+				83414F7B65D58920F123D7A4 /* ScreenRecordingPermission.swift */,
+			);
+			path = Permissions;
+			sourceTree = "<group>";
+		};
+		6D4B748A3E5BC9F038DBED85 /* Bonmenu */ = {
+			isa = PBXGroup;
+			children = (
+				1AC383D5C2DFC0AC42A33345 /* Bridging */,
+				B5F376AE1C490EB40ECBF181 /* Events */,
+				FED0BA88F265CFC8394C443E /* Hotkeys */,
+				F3623C4F64676938F401F544 /* Main */,
+				C65E0CEC7755A28B100D00CA /* MenuBar */,
+				6AEEAA2B9857D7F9BAE3837E /* Permissions */,
+				55F765F7374AF947F70AE1FC /* Resources */,
+				74B87DDB6544F2B783260094 /* UI */,
+				541620218624B61713F70DBA /* Utilities */,
+			);
+			path = Bonmenu;
+			sourceTree = "<group>";
+		};
+		74B87DDB6544F2B783260094 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F13D8974956F98D58BFCE4F6 /* Dropdown */,
+				E3BDD656658B945A9D33A685 /* Settings */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		A630E52C26DEC641D326217D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E59A80E17C2F26FCC5D66A1D /* Bonmenu.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B5F376AE1C490EB40ECBF181 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				C73A1C29B231A138637105A7 /* EventManager.swift */,
+				E0AA8AA1CF963EFD6EC3BCC9 /* GlobalEventMonitor.swift */,
+				45DFAAF33F7632E99B392968 /* LocalEventMonitor.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		C65E0CEC7755A28B100D00CA /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				CTRL00000001000000000001 /* ControlItem.swift */,
+				A050485FE31E9A09FC6355AC /* MenuBarManager.swift */,
+				EB87662D0301B1D70A2959E4 /* MenuBarSection.swift */,
+				F2F45E6541DAF6568774EB76 /* Items */,
+			);
+			path = MenuBar;
+			sourceTree = "<group>";
+		};
+		E3BDD656658B945A9D33A685 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5474326D3049605906287F59 /* AdvancedSettingsPane.swift */,
+				5DDDD6E537192AC2E0BF1957 /* AppearanceSettingsPane.swift */,
+				A7959780F895BABB81C3D4A3 /* GeneralSettingsPane.swift */,
+				8BA46C9521ECD3816AF1210F /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		F13D8974956F98D58BFCE4F6 /* Dropdown */ = {
+			isa = PBXGroup;
+			children = (
+				2548357757C4EDE1CB50FD54 /* DropdownContentView.swift */,
+				54E813A99A9DAFB58271FAC2 /* DropdownFooterView.swift */,
+				397244D1E09C063C88A014BF /* DropdownHeaderView.swift */,
+				85ADFEEF8B7B6BB83E4423D6 /* DropdownItemView.swift */,
+				D4AB5FF873D00FB9F5EED437 /* DropdownPanel.swift */,
+				D82623D2975993453E0BF3DC /* DropdownSectionView.swift */,
+				F47A2935FC80F4B10253D074 /* PrismaticBorderView.swift */,
+			);
+			path = Dropdown;
+			sourceTree = "<group>";
+		};
+		F2F45E6541DAF6568774EB76 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				49B0D592E165D2B756C3D901 /* MenuBarItem.swift */,
+				889335FAD6398D45853DE370 /* MenuBarItemImageCache.swift */,
+				270F0171754FC11F6A95BDBD /* MenuBarItemManager.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		F3623C4F64676938F401F544 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EC1690C3125C2A363B7E169E /* AppDelegate.swift */,
+				7AA6CA2C57BABBED6E217DE2 /* AppState.swift */,
+				A4FE6708A7B83AD8FBF44115 /* BonmenuApp.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		FED0BA88F265CFC8394C443E /* Hotkeys */ = {
+			isa = PBXGroup;
+			children = (
+				B1AE7341B3492C60667D33D7 /* HotkeyManager.swift */,
+			);
+			path = Hotkeys;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B2A4A224F624CA5EB394E3E6 /* Bonmenu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DFB91231F9F80CAACE4BEED /* Build configuration list for PBXNativeTarget "Bonmenu" */;
+			buildPhases = (
+				DEF1A00BCE7DE2D839C6A412 /* Sources */,
+				D2FEBF9DE0F971AFBE961926 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bonmenu;
+			packageProductDependencies = (
+			);
+			productName = Bonmenu;
+			productReference = E59A80E17C2F26FCC5D66A1D /* Bonmenu.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		54BCF884B30851868117F4A6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = 54DE0A8B4F7116260C4679E1 /* Build configuration list for PBXProject "Bonmenu" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 3F5C963E4B1B216627EDCB6C;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B2A4A224F624CA5EB394E3E6 /* Bonmenu */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D2FEBF9DE0F971AFBE961926 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				407B349D7EA4B908AC1F2730 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DEF1A00BCE7DE2D839C6A412 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99958D0AF7CFD83A13563AD6 /* AccessibilityPermission.swift in Sources */,
+				4B467BC513A9706764E24925 /* AdvancedSettingsPane.swift in Sources */,
+				960EBF349BBEC5EC8EE83E3D /* AppDelegate.swift in Sources */,
+				D354D30720FA3CE132F459AC /* AppState.swift in Sources */,
+				B8EFDC63CF270623A4A5A545 /* AppearanceSettingsPane.swift in Sources */,
+				51F933887540A6080D8B931F /* BonmenuApp.swift in Sources */,
+				698E31E389D1BA447138841E /* Bridging.swift in Sources */,
+				C06363EC59068164CD8247DC /* Constants.swift in Sources */,
+				CTRL00000001000000000002 /* ControlItem.swift in Sources */,
+				166E8C0E5D21475D1C56F6F5 /* DropdownContentView.swift in Sources */,
+				A7C2A7BD1CE56ED748A2D9F1 /* DropdownFooterView.swift in Sources */,
+				3C868C6876CFA6809FDD79F5 /* DropdownHeaderView.swift in Sources */,
+				F93B5AAE3E58BC1A52692DD7 /* DropdownItemView.swift in Sources */,
+				B62CC4AAE4E54729009545B4 /* DropdownPanel.swift in Sources */,
+				510FAD4A5927A37448205B9B /* DropdownSectionView.swift in Sources */,
+				EA166C0DDBD15F0BA4E9CD22 /* EventManager.swift in Sources */,
+				3AE30D43FE1EA89BC2D7F4FC /* Extensions.swift in Sources */,
+				38444D0AF57F59B881603E16 /* GeneralSettingsPane.swift in Sources */,
+				D17C5F1DE89B677E82F8E5BE /* GlobalEventMonitor.swift in Sources */,
+				D019407D27E9FBA4629F695C /* HotkeyManager.swift in Sources */,
+				2A6650840FEF030028ADE768 /* LocalEventMonitor.swift in Sources */,
+				90EE7C1531C31905A18FBF2E /* MenuBarItem.swift in Sources */,
+				F6664F4C918C2AD35DE7E71B /* MenuBarItemImageCache.swift in Sources */,
+				B4440F4D8C8A0AE16D4BFC88 /* MenuBarItemManager.swift in Sources */,
+				19DAFEF93236088C431020E6 /* MenuBarManager.swift in Sources */,
+				24789C9FDF7C1FD398CB6B1B /* MenuBarSection.swift in Sources */,
+				BF90056A4B4B349B9C41798E /* PermissionsManager.swift in Sources */,
+				006B85ECD95D33839246AF32 /* PermissionsView.swift in Sources */,
+				E5106B05A89FCE02701696FB /* PrismaticBorderView.swift in Sources */,
+				9C385A3EAF79A2DCA9C66C68 /* PrivateAPIs.swift in Sources */,
+				8093BE7800D2D3380461DE87 /* ScreenRecordingPermission.swift in Sources */,
+				E126AFA5E8F73E8C43D6E69E /* SettingsView.swift in Sources */,
+				E4024610B91B694CA8685B56 /* WindowInfo.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		26B0BC0D43398881D57BA6F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Bonmenu/Resources/Bonmenu.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Bonmenu/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		611431614925D27C186290BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Bonmenu/Resources/Bonmenu.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Bonmenu/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		C74E44BDADF1DE190285CD70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bonmenu/Resources/Bonmenu.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = Bonmenu/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bonmenu.app;
+				PRODUCT_NAME = Bonmenu;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FC59093FA420326BB89BA9AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bonmenu/Resources/Bonmenu.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = NO;
+				INFOPLIST_FILE = Bonmenu/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bonmenu.app;
+				PRODUCT_NAME = Bonmenu;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DFB91231F9F80CAACE4BEED /* Build configuration list for PBXNativeTarget "Bonmenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C74E44BDADF1DE190285CD70 /* Debug */,
+				FC59093FA420326BB89BA9AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		54DE0A8B4F7116260C4679E1 /* Build configuration list for PBXProject "Bonmenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				611431614925D27C186290BD /* Debug */,
+				26B0BC0D43398881D57BA6F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 54BCF884B30851868117F4A6 /* Project object */;
+}
